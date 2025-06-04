@@ -1,32 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>floralandfocus</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Floral & Focus</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/favicon.png" />
+  <style>
+    /* Embed some basic dark academia CSS here temporarily */
+    body {
+      background-color: #1e1c1c;
+      color: #e9e4d4;
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('assets/paper-texture.jpg');
+      background-size: cover;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1rem auto;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #d8cfc0;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #f2ede0;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: rgba(34, 32, 32, 0.85);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .quote-box {
+      text-align: center;
+      margin: 2rem auto;
+      font-style: italic;
+    }
+
+    .music-player {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    button {
+      background: #3e3b3b;
+      color: #f8f3e8;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #524e4e;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      margin: 3rem 0;
+      color: #bcb4a1;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-    <ul class="nav-list">
-        <li><a href="index.html">🏡 Home</a></li>
-        <li><a href="moonlit-archive.html">📚 Moonlit Archive</a></li>
-        <li><a href="quote-shrine.html">🪔 Quote Shrine</a></li>
-        <li><a href="lunar-study-log.html">🌙 Lunar Study Log</a></li>
-        <li><a href="petal-table.html">🪷 Petal Table</a></li>
-        <li><a href="thought-bloom.html">🌸 Thought Bloom</a></li>
-        <li><a href="music-lounge.html">🎵 Music Lounge</a></li>
-    </ul>
-</nav>
+  <header>
+    <h1>Floral & Focus</h1>
+    <p>“Where petals fall, focus blooms.”</p>
+  </header>
 
-    <main>
-        <h1>floralandfocus</h1>
-        <p>Welcome to your cozy online study garden.</p>
-    </main>
-    <footer style="text-align:center; margin-top: 40px;">
-        <p style="font-style: italic; color:#a3c4dc;">
-            “May your days be quiet, your thoughts blooming like petals in moonlight.” 🌙🪷
-        </p>
-    </footer>
+  <nav>
+    <a href="moonlit-archive.html">Moonlit Archive</a>
+    <a href="quote-shrine.html">Quote Shrine</a>
+    <a href="lunar-study-log.html">Study Log</a>
+    <a href="petal-table.html">Petal Table</a>
+    <a href="thought-bloom.html">Thought Bloom</a>
+    <a href="music-lounge.html">Music Lounge</a>
+  </nav>
+
+  <div class="quote-box">
+    <p id="quote">"Loading moonlit thoughts..."</p>
+    <button onclick="generateQuote()">Refresh Quote</button>
+  </div>
+
+  <div class="card-grid">
+    <div class="card"><a href="moonlit-archive.html">📚 Moonlit Archive</a></div>
+    <div class="card"><a href="quote-shrine.html">🕯️ Quote Shrine</a></div>
+    <div class="card"><a href="lunar-study-log.html">📓 Study Log</a></div>
+    <div class="card"><a href="petal-table.html">📋 Petal Table</a></div>
+    <div class="card"><a href="thought-bloom.html">🌼 Thought Bloom</a></div>
+    <div class="card"><a href="music-lounge.html">🎶 Music Lounge</a></div>
+  </div>
+
+  <div class="music-player">
+    <button onclick="toggleMusic()">🎧 Toggle Music</button>
+    <audio id="bgMusic" loop>
+      <source src="assets/lofi.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 floralandfocus — crafted under the stars ✨</p>
+  </footer>
+
+  <script>
+    const quotes = [
+      "“Study like a scholar, dream like a poet.”",
+      "“There is no exquisite beauty… without some strangeness in the proportion.” – Edgar Allan Poe",
+      "“Discipline is choosing between what you want now and what you want most.”",
+      "“A room without books is like a body without a soul.” – Cicero",
+      "“Silence is a source of great strength.” – Lao Tzu",
+      "“As the sakura falls, let your thoughts rise.”"
+    ];
+
+    function generateQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").textContent = quote;
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    window.onload = generateQuote;
+  </script>
 </body>
 </html>
+
