@@ -1,32 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petal Table</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Petal Table - Floral & Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet" />
+<style>
+  body {
+    background-color: #1b1a1a;
+    color: #e6e2d3;
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    /* embedded subtle sakura petal pattern */
+    background-image: url("data:image/svg+xml,%3csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='40' r='6' fill='%23cfc9b980'/%3e%3cpath d='M40 34a6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6 6 6 0 0 1 6-6z' fill='%23d9cbb080'/%3e%3c/svg%3e");
+    background-repeat: repeat;
+    background-size: 80px 80px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.8rem;
+    color: #cfc9b9;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 6px #8e7e6f;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(30, 27, 27, 0.9);
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.8);
+  }
+
+  form {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+    background: #2f2b2b;
+    color: #e6e2d3;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  button {
+    background: #5e524d;
+    color: #f2efe9;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 12px;
+    padding: 0.7rem 1.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background: #7a6a63;
+  }
+
+  ul.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #252121;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 0 6px #3b3432;
+    transition: background 0.3s ease;
+  }
+
+  li.task.done {
+    background: #4b544f;
+    text-decoration: line-through;
+    color: #9fa89f;
+  }
+
+  li.task:hover {
+    background: #3a3533;
+  }
+
+  .task-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #a98b6d;
+    cursor: pointer;
+  }
+
+  .task-text {
+    font-size: 1.1rem;
+  }
+
+  .task-actions button {
+    background: transparent;
+    border: none;
+    color: #cfc9b9;
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin-left: 0.6rem;
+    transition: color 0.3s ease;
+  }
+
+  .task-actions button:hover {
+    color: #e6d2b5;
+  }
+
+  /* Sakura petal floating animation */
+  @keyframes floatPetal {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-60px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .petal {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: url("data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='%23d9cbb8' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12 2C10.8954 2 10 2.89543 10 4C10 5.10457 12 9 12 9C12 9 14 5.10457 14 4C14 2.89543 13.1046 2 12 2Z'/%3e%3cpath d='M16 8C14 10 12 14 12 14C12 14 10 10 8 8C6 6 8 4 8 4C8 4 10 3 12 4C14 3 16 4 16 4C16 4 18 6 16 8Z'/%3e%3c/svg%3e") no-repeat center/contain;
+    animation: floatPetal 5s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 9999;
+  }
+</style>
 </head>
 <body>
-    <nav>
-    <ul class="nav-list">
-        <li><a href="index.html">🏡 Home</a></li>
-        <li><a href="moonlit-archive.html">📚 Moonlit Archive</a></li>
-        <li><a href="quote-shrine.html">🪔 Quote Shrine</a></li>
-        <li><a href="lunar-study-log.html">🌙 Lunar Study Log</a></li>
-        <li><a href="petal-table.html">🪷 Petal Table</a></li>
-        <li><a href="thought-bloom.html">🌸 Thought Bloom</a></li>
-        <li><a href="music-lounge.html">🎵 Music Lounge</a></li>
-    </ul>
-</nav>
 
-    <main>
-        <h1>Petal Table</h1>
-        <p>Ground yourself with gentle rituals and tasks for the day.</p>
-    </main>
-    <footer style="text-align:center; margin-top: 40px;">
-        <p style="font-style: italic; color:#a3c4dc;">
-            “May your days be quiet, your thoughts blooming like petals in moonlight.” 🌙🪷
-        </p>
-    </footer>
+  <h1>Petal Table 🌸</h1>
+
+  <div class="container">
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Add a new study task or goal..." maxlength="80" required />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="task-list" class="task-list">
+      <!-- Tasks appear here -->
+    </ul>
+  </div>
+
+<script>
+  const taskForm = document.getElementById('task-form');
+  const taskInput = document.getElementById('task-input');
+  const taskList = document.getElementById('task-list');
+
+  let tasks = JSON.parse(localStorage.getItem('floralandfocus-petal-tasks')) || [];
+
+  function saveTasks() {
+    localStorage.setItem('floralandfocus-petal-tasks', JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const li = document.createElement('li');
+      li.className = 'task' + (task.done ? ' done' : '');
+
+      li.innerHTML = `
+        <div class="task-left">
+          <input type="checkbox" id="chk-${index}" ${task.done ? 'checked' : ''} />
+          <label for="chk-${index}" class="task-text">${task.text}</label>
+        </div>
+        <div class="task-actions">
+          <button onclick="editTask(${index})" title="Edit task">✏️</button>
+          <button onclick="removeTask(${index})" title="Remove task">🗑️</button>
+        </div>
+      `;
+
+      taskList.appendChild(li);
+
+      // Checkbox listener
+      li.querySelector('input[type="checkbox"]').addEventListener('change', (e) => {
+        tasks[index].done = e.target.checked;
+        saveTasks();
+        renderTasks();
+      });
+    });
+  }
+
+  function addTask(text) {
+    tasks.push({ text: text, done: false });
+    saveTasks();
+    renderTasks();
+  }
+
+  function removeTask(index) {
+    if (confirm('Remove this task?')) {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+  }
+
+  function editTask(index) {
+    const newText = prompt('Edit your task:', tasks[index].text);
+    if (newText !== null && newText.trim() !== '') {
+      tasks[index].text = newText.trim();
+      saveTasks();
+      renderTasks();
+    }
+  }
+
+  taskForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = taskInput.value.trim();
+    if (val) {
+      addTask(val);
+      taskInput.value = '';
+    }
+  });
+
+  // Petal floating effect (few petals)
+  function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    petal.style.left = Math.random() * window.innerWidth + 'px';
+    petal.style.animationDuration = (4 + Math.random() * 4) + 's';
+    petal.style.animationDelay = (Math.random() * 5) + 's';
+    document.body.appendChild(petal);
+    setTimeout(() => {
+      petal.remove();
+    }, 8000);
+  }
+  setInterval(createPetal, 1500);
+
+  // Initial render
+  renderTasks();
+</script>
+
 </body>
 </html>
+
