@@ -1,32 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thought Bloom</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thought Bloom - Floral & Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet" />
+<style>
+  /* Base & fonts */
+  body {
+    background-color: #1b1a1a;
+    color: #d8cfc4;
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    background-image: url("data:image/svg+xml,%3csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='40' r='6' fill='%23cfc9b980'/%3e%3cpath d='M40 34a6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6 6 6 0 0 1 6-6z' fill='%23d9cbb080'/%3e%3c/svg%3e");
+    background-repeat: repeat;
+    background-size: 80px 80px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #bfb6a9;
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 5px #7a6e63;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(28, 25, 25, 0.9);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.85);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+    font-size: 1.15rem;
+    padding: 1rem 1.2rem;
+    border-radius: 14px;
+    border: none;
+    background: #2f2a29;
+    color: #d8cfc4;
+    font-family: 'Noto Serif JP', serif;
+    box-shadow: inset 0 0 10px #433c37aa;
+    transition: box-shadow 0.3s ease;
+  }
+  textarea:focus {
+    outline: none;
+    box-shadow: inset 0 0 15px #a98b6dcc;
+    background: #3a332f;
+  }
+
+  button {
+    width: 130px;
+    align-self: flex-end;
+    background-color: #5e524d;
+    color: #f2efe9;
+    font-size: 1.15rem;
+    border: none;
+    border-radius: 16px;
+    padding: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #7a6a63;
+  }
+
+  ul#thought-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li.thought-item {
+    background: #2b2726;
+    padding: 1.3rem 1.8rem;
+    margin-bottom: 1rem;
+    border-radius: 18px;
+    box-shadow: 0 0 12px #3a3533;
+    position: relative;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease;
+    animation: bloom 0.5s ease forwards;
+  }
+
+  li.thought-item:hover {
+    transform: scale(1.03);
+  }
+
+  @keyframes bloom {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .actions {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .actions button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #b9ac99;
+    font-size: 1.3rem;
+    transition: color 0.3s ease;
+  }
+  .actions button:hover {
+    color: #d8cfc4;
+  }
+</style>
 </head>
 <body>
-    <nav>
-    <ul class="nav-list">
-        <li><a href="index.html">🏡 Home</a></li>
-        <li><a href="moonlit-archive.html">📚 Moonlit Archive</a></li>
-        <li><a href="quote-shrine.html">🪔 Quote Shrine</a></li>
-        <li><a href="lunar-study-log.html">🌙 Lunar Study Log</a></li>
-        <li><a href="petal-table.html">🪷 Petal Table</a></li>
-        <li><a href="thought-bloom.html">🌸 Thought Bloom</a></li>
-        <li><a href="music-lounge.html">🎵 Music Lounge</a></li>
-    </ul>
-</nav>
 
-    <main>
-        <h1>Thought Bloom</h1>
-        <p>Let your thoughts bloom like spring after stillness.</p>
-    </main>
-    <footer style="text-align:center; margin-top: 40px;">
-        <p style="font-style: italic; color:#a3c4dc;">
-            “May your days be quiet, your thoughts blooming like petals in moonlight.” 🌙🪷
-        </p>
-    </footer>
+  <h1>Thought Bloom 🌸📝</h1>
+
+  <div class="container">
+    <form id="thought-form" autocomplete="off">
+      <textarea id="thought-text" placeholder="Write your thoughts or reflections here..." maxlength="500" required></textarea>
+      <button type="submit">Add Thought</button>
+    </form>
+
+    <ul id="thought-list"></ul>
+  </div>
+
+<script>
+  const STORAGE_KEY = 'floralandfocus-thoughts';
+
+  let thoughts = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+  const thoughtList = document.getElementById('thought-list');
+  const form = document.getElementById('thought-form');
+  const inputThought = document.getElementById('thought-text');
+
+  function saveThoughts() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(thoughts));
+  }
+
+  function renderThoughts() {
+    thoughtList.innerHTML = '';
+    if(thoughts.length === 0){
+      thoughtList.innerHTML = '<p style="text-align:center; color:#837a6d; font-style: italic;">No thoughts yet. Let your mind bloom here.</p>';
+      return;
+    }
+
+    thoughts.forEach((thought, i) => {
+      const li = document.createElement('li');
+      li.classList.add('thought-item');
+      li.innerHTML = `
+        <span class="thought-text">${escapeHtml(thought.text)}</span>
+        <div class="actions">
+          <button title="Edit" aria-label="Edit thought">✏️</button>
+          <button title="Delete" aria-label="Delete thought">🗑️</button>
+        </div>
+      `;
+
+      // Edit thought
+      li.querySelector('button[title="Edit"]').onclick = () => {
+        const newText = prompt('Edit your thought:', thought.text);
+        if(newText !== null) {
+          thoughts[i].text = newText.trim().substring(0, 500);
+          saveThoughts();
+          renderThoughts();
+        }
+      };
+
+      // Delete thought
+      li.querySelector('button[title="Delete"]').onclick = () => {
+        if(confirm('Delete this thought?')) {
+          thoughts.splice(i, 1);
+          saveThoughts();
+          renderThoughts();
+        }
+      };
+
+      thoughtList.appendChild(li);
+    });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const text = inputThought.value.trim();
+    if(text === '') return;
+
+    thoughts.unshift({text});
+    saveThoughts();
+    renderThoughts();
+
+    inputThought.value = '';
+  });
+
+  // Escape HTML special chars to prevent injection
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
+
+  renderThoughts();
+</script>
+
 </body>
 </html>
