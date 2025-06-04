@@ -1,32 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote Shrine</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quote Shrine - Floral & Focus</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet" />
+<style>
+  /* Base & fonts */
+  body {
+    background-color: #1b1a1a;
+    color: #d8cfc4;
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 2rem 1.5rem;
+    background-image: url("data:image/svg+xml,%3csvg width='80' height='80' viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='40' cy='40' r='6' fill='%23cfc9b980'/%3e%3cpath d='M40 34a6 6 0 0 1 6 6 6 6 0 0 1-6 6 6 6 0 0 1-6-6 6 6 0 0 1 6-6z' fill='%23d9cbb080'/%3e%3c/svg%3e");
+    background-repeat: repeat;
+    background-size: 80px 80px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #bfb6a9;
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 5px #7a6e63;
+  }
+
+  .container {
+    max-width: 650px;
+    margin: auto;
+    background: rgba(28, 25, 25, 0.9);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.85);
+  }
+
+  /* Daily quote style */
+  #daily-quote {
+    font-style: italic;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 1.5rem;
+    border-left: 6px solid #a98b6d;
+    background: #2a2727cc;
+    border-radius: 12px;
+    color: #e1d8c4;
+    user-select: none;
+  }
+
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 70px;
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: none;
+    background: #2f2a29;
+    color: #d8cfc4;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  input[type="text"] {
+    font-size: 1.1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    border: none;
+    background: #2f2a29;
+    color: #d8cfc4;
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  button {
+    background-color: #5e524d;
+    color: #f2efe9;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 14px;
+    padding: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 140px;
+    align-self: flex-end;
+  }
+  button:hover {
+    background-color: #7a6a63;
+  }
+
+  /* Quotes list */
+  ul#quote-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li.quote-item {
+    background: #2b2726;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #3a3533;
+    position: relative;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .quote-author {
+    font-size: 1rem;
+    font-style: italic;
+    color: #b9ac99;
+    text-align: right;
+  }
+
+  .actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .actions button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #b9ac99;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+  }
+
+  .actions button:hover {
+    color: #d8cfc4;
+  }
+
+  .liked {
+    color: #a98b6d;
+  }
+</style>
 </head>
 <body>
-    <nav>
-    <ul class="nav-list">
-        <li><a href="index.html">🏡 Home</a></li>
-        <li><a href="moonlit-archive.html">📚 Moonlit Archive</a></li>
-        <li><a href="quote-shrine.html">🪔 Quote Shrine</a></li>
-        <li><a href="lunar-study-log.html">🌙 Lunar Study Log</a></li>
-        <li><a href="petal-table.html">🪷 Petal Table</a></li>
-        <li><a href="thought-bloom.html">🌸 Thought Bloom</a></li>
-        <li><a href="music-lounge.html">🎵 Music Lounge</a></li>
-    </ul>
-</nav>
 
-    <main>
-        <h1>Quote Shrine</h1>
-        <p>A curated shrine of beautiful quotes, mantras, and affirmations.</p>
-    </main>
-    <footer style="text-align:center; margin-top: 40px;">
-        <p style="font-style: italic; color:#a3c4dc;">
-            “May your days be quiet, your thoughts blooming like petals in moonlight.” 🌙🪷
-        </p>
-    </footer>
+  <h1>Quote Shrine 🏯📜</h1>
+
+  <div class="container">
+    <div id="daily-quote" title="Your inspirational quote of the day">
+      Loading today's inspiration...
+    </div>
+
+    <form id="quote-form" autocomplete="off">
+      <textarea id="quote-text" placeholder="Enter your favorite quote..." required maxlength="280"></textarea>
+      <input type="text" id="quote-author" placeholder="Author (optional)" maxlength="50" />
+      <button type="submit">Add Quote</button>
+    </form>
+
+    <ul id="quote-list"></ul>
+  </div>
+
+<script>
+  // Daily Quotes (example batch)
+  const dailyQuotes = [
+    {text: "It is not in the stars to hold our destiny but in ourselves.", author: "William Shakespeare"},
+    {text: "The moon is a loyal companion.", author: "Tahereh Mafi"},
+    {text: "Study without desire spoils the memory.", author: "Leonardo da Vinci"},
+    {text: "Dreams are the touchstones of our character.", author: "Henry David Thoreau"},
+    {text: "Elegance is refusal.", author: "Coco Chanel"},
+    {text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu"},
+    {text: "The best way out is always through.", author: "Robert Frost"},
+  ];
+
+  // Show a random daily quote each time page loads
+  function showDailyQuote() {
+    const dq = dailyQuotes[Math.floor(Math.random() * dailyQuotes.length)];
+    const dqDiv = document.getElementById('daily-quote');
+    dqDiv.textContent = `"${dq.text}" — ${dq.author}`;
+  }
+
+  showDailyQuote();
+
+  // LocalStorage key
+  const STORAGE_KEY = 'floralandfocus-quotes';
+
+  // Load saved quotes or empty array
+  let quotes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+  const quoteList = document.getElementById('quote-list');
+  const form = document.getElementById('quote-form');
+  const inputText = document.getElementById('quote-text');
+  const inputAuthor = document.getElementById('quote-author');
+
+  function saveQuotes() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(quotes));
+  }
+
+  function renderQuotes() {
+    quoteList.innerHTML = '';
+    if(quotes.length === 0){
+      quoteList.innerHTML = '<p style="text-align:center; color:#837a6d; font-style: italic;">No quotes yet. Add your favorite to inspire others.</p>';
+      return;
+    }
+
+    quotes.forEach((quote, i) => {
+      const li = document.createElement('li');
+      li.classList.add('quote-item');
+      li.innerHTML = `
+        <div class="quote-text">“${quote.text}”</div>
+        <div class="quote-author">${quote.author ? '— ' + quote.author : ''}</div>
+        <div class="actions">
+          <button title="Like" aria-label="Like quote" class="${quote.liked ? 'liked' : ''}">❤️</button>
+          <button title="Delete" aria-label="Delete quote">🗑️</button>
+        </div>
+      `;
+
+      // Like button
+      li.querySelector('.actions button:nth-child(1)').onclick = () => {
+        quotes[i].liked = !quotes[i].liked;
+        saveQuotes();
+        renderQuotes();
+      };
+
+      // Delete button
+      li.querySelector('.actions button:nth-child(2)').onclick = () => {
+        if(confirm('Delete this quote?')) {
+          quotes.splice(i,1);
+          saveQuotes();
+          renderQuotes();
+        }
+      };
+
+      quoteList.appendChild(li);
+    });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const text = inputText.value.trim();
+    if(text === '') return;
+    const author = inputAuthor.value.trim();
+
+    quotes.unshift({text, author, liked: false});
+    saveQuotes();
+    renderQuotes();
+
+    inputText.value = '';
+    inputAuthor.value = '';
+  });
+
+  // Initial render
+  renderQuotes();
+</script>
+
 </body>
 </html>
+
